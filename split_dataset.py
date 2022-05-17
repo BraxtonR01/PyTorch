@@ -2,19 +2,21 @@ import glob
 import os
 import numpy as np
 import sys
-current_dir = "./data/images"
+parent = os.path.dirname(os.getcwd())
+current_dir = os.path.join(parent, 'data', 'images')
+print(current_dir)
 split_pct = 10  # 10% validation set
-file_train = open("data/train.txt", "w")  
-file_val = open("data/val.txt", "w")  
+file_train = open(os.path.join(parent, "./data/train.txt"), "w")  
+file_val = open(os.path.join(parent, "./data/val.txt"), "w")  
 counter = 1  
 index_test = round(100 / split_pct)  
-for fullpath in glob.iglob(os.path.join(current_dir, "*.JPG")):  
+for fullpath in glob.iglob(os.path.join(current_dir, "*.png")):  
   title, ext = os.path.splitext(os.path.basename(fullpath))
   if counter == index_test:
     counter = 1
-    file_val.write(current_dir + "/" + title + '.JPG' + "\n")
+    file_val.write(current_dir + "/" + title + '.png' + "\n")
   else:
-    file_train.write(current_dir + "/" + title + '.JPG' + "\n")
+    file_train.write(current_dir + "/" + title + '.png' + "\n")
     counter = counter + 1
 file_train.close()
 file_val.close()
